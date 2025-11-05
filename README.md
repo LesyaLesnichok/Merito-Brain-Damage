@@ -29,7 +29,7 @@ Now you are ready to clone the repository.
 1.  Open your terminal and navigate to where you want to store the project.
 2.  Run the `git clone` command:
     ```bash
-    git clone https://github.com/LesyaLesnichok/Merito-Brain-Damage.git
+    git clone https://github.com/lukasus55/Merito-Brain-Damage.git
     ```
 3.  **Watch the clone output.** You will see the normal Git messages, followed by LFS messages.
     ```
