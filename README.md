@@ -1,6 +1,11 @@
 # MERITO BRAIN DAMAGE
 `TODO: Opis gry` 
 
+## 🤝 How to Contribute
+All guidelines for our workflow, coding standards, and project setup are detailed in our contributing guide.
+
+**Please read the [CONTRIBUTING.MD](./CONTRIBUTING.md) file before you start work.**
+
 ## 🚀 Getting Started: How to Set Up the Project
 
 > **STOP! This project uses Git LFS (Large File Storage).**
