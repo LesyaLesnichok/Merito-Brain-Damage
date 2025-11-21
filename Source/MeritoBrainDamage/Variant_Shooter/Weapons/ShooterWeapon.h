@@ -4,9 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "NiagaraSystem.h"
 #include "ShooterWeaponHolder.h"
 #include "Animation/AnimInstance.h"
 #include "ShooterWeapon.generated.h"
+
 
 class IShooterWeaponHolder;
 class AShooterProjectile;
@@ -60,6 +62,10 @@ protected:
 
 	/** Number of bullets in the current magazine */
 	int32 CurrentBullets = 0;
+
+	/** The VFX to spawn at the muzzle when firing */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "VFX")
+	UNiagaraSystem* MuzzleFlash;
 	
 	/** Animation montage to play when firing this weapon */
 	UPROPERTY(EditAnywhere, Category="Animation")

@@ -12,6 +12,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/Pawn.h"
 #include "Kismet/GameplayStatics.h"
+#include "NiagaraFunctionLibrary.h"
 
 AShooterWeapon::AShooterWeapon()
 {
@@ -185,6 +186,20 @@ void AShooterWeapon::FireProjectile(const FVector& TargetLocation)
 	if (FireSound)
 	{
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+	}
+
+	if (MuzzleFlash && FirstPersonMesh)
+	{
+		// Spawn the VFX attached to the Muzzle Socket
+		UNiagaraFunctionLibrary::SpawnSystemAttached(
+			MuzzleFlash,
+			FirstPersonMesh,
+			MuzzleSocketName,
+			FVector::ZeroVector,
+			FRotator::ZeroRotator,
+			EAttachLocation::SnapToTarget,
+			true
+		);
 	}
 
 	// play the firing montage

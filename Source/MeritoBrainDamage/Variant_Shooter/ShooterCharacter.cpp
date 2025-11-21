@@ -183,7 +183,7 @@ void AShooterCharacter::DoReloadWeapon()
 
 void AShooterCharacter::AttachWeaponMeshes(AShooterWeapon* Weapon)
 {
-	const FAttachmentTransformRules AttachmentRule(EAttachmentRule::SnapToTarget, false);
+	const FAttachmentTransformRules AttachmentRule(EAttachmentRule::KeepRelative, false);
 
 	// attach the weapon actor
 	Weapon->AttachToActor(this, AttachmentRule);
