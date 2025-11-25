@@ -8,7 +8,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/PlayerStart.h"
 #include "ShooterCharacter.h"
-#include "ShooterBulletCounterUI.h"
+#include "ShooterHUD.h"
 #include "MeritoBrainDamage.h"
 #include "Widgets/Input/SVirtualJoystick.h"
 
@@ -37,7 +37,7 @@ void AShooterPlayerController::BeginPlay()
 		}
 
 		// create the bullet counter widget and add it to the screen
-		BulletCounterUI = CreateWidget<UShooterBulletCounterUI>(this, BulletCounterUIClass);
+		BulletCounterUI = CreateWidget<UShooterHUD>(this, BulletCounterUIClass);
 
 		if (BulletCounterUI)
 		{
