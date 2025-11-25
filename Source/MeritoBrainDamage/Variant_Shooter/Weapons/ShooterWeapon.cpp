@@ -36,6 +36,9 @@ AShooterWeapon::AShooterWeapon()
 	ThirdPersonMesh->SetCollisionProfileName(FName("NoCollision"));
 	ThirdPersonMesh->SetFirstPersonPrimitiveType(EFirstPersonPrimitiveType::WorldSpaceRepresentation);
 	ThirdPersonMesh->bOwnerNoSee = true;
+
+	// Default to 0.1 (Normal size)
+	CrosshairScale = FVector2D(0.1f, 0.1f);
 }
 
 void AShooterWeapon::BeginPlay()

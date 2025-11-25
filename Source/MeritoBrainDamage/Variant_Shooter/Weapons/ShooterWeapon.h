@@ -52,6 +52,18 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Audio")
 	USoundBase* FireSound;
 
+	/** The icon to display in the UI (Ammo counter, Weapon Wheel, etc.) */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
+	UTexture2D* WeaponIcon;
+
+	/** The crosshair to be used with this weapon */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
+	UTexture2D* WeaponCrosshair;
+
+	/** Scale of the crosshair (X, Y). Default is 1.0, 1.0 */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI")
+	FVector2D CrosshairScale;
+
 	/** Type of projectiles this weapon will shoot */
 	UPROPERTY(EditAnywhere, Category="Ammo")
 	TSubclassOf<AShooterProjectile> ProjectileClass;
@@ -189,6 +201,12 @@ public:
 	UFUNCTION(BlueprintPure, Category="Weapon")
 	USkeletalMeshComponent* GetThirdPersonMesh() const { return ThirdPersonMesh; };
 
+	/** Getter for the icon */
+	UTexture2D* GetWeaponIcon() const { return WeaponIcon; }
+
+	/** Getter for the crosshair */
+	UTexture2D* GetWeaponCrosshair() const { return WeaponCrosshair; }
+
 	/** Returns the first person anim instance class */
 	const TSubclassOf<UAnimInstance>& GetFirstPersonAnimInstanceClass() const;
 
@@ -200,6 +218,9 @@ public:
 
 	/** Returns the current bullet count */
 	int32 GetBulletCount() const { return CurrentBullets; }
+
+	/** Returns the crosshair scale */
+	FVector2D GetCrosshairScale() const { return CrosshairScale; };
 
 	/** Returns the priority for sorting */
 	int32 GetWeaponSlotPriority() const { return WeaponSlotPriority; }
