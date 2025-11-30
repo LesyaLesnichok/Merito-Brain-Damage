@@ -31,6 +31,17 @@ class MERITOBRAINDAMAGE_API AShooterCharacter : public AMeritoBrainDamageCharact
 
 protected:
 
+	/** Input Action for opening the weapon wheel */
+	UPROPERTY(EditAnywhere, Category = "Input|Input Mappings")
+	UInputAction* WeaponWheelAction;
+
+	/** Class of the Weapon Wheel Widget */
+	UPROPERTY(EditAnywhere, Category = "Shooter|UI")
+	TSubclassOf<UUserWidget> WeaponWheelClass;
+
+	/** Pointer to the active instance */
+	TObjectPtr<UUserWidget> WeaponWheelWidget;
+
 	/** Fire weapon input action */
 	UPROPERTY(EditAnywhere, Category ="Input")
 	UInputAction* FireAction;
@@ -113,6 +124,12 @@ public:
 
 public:
 
+	/** Shows the wheel and enables mouse */
+	void ShowWeaponWheel();
+
+	/** Hides the wheel and disables mouse */
+	void HideWeaponWheel();
+
 	/** Handles start firing input */
 	UFUNCTION(BlueprintCallable, Category="Input")
 	void DoStartFiring();
@@ -136,6 +153,11 @@ public:
 	/** Check if the character has a specific weapon and return it */
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	AShooterWeapon* FindWeaponOfType(TSubclassOf<AShooterWeapon> WeaponClass) const;
+
+public:
+	/** Returns the list of weapons the player currently owns */
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	TArray<AShooterWeapon*> GetOwnedWeapons() const { return OwnedWeapons; }
 
 public:
 

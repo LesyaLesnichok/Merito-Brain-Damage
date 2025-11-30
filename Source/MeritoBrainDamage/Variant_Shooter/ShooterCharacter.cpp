@@ -12,6 +12,8 @@
 #include "Camera/CameraComponent.h"
 #include "TimerManager.h"
 #include "ShooterGameMode.h"
+#include "Blueprint/UserWidget.h"
+#include "GameFramework/PlayerController.h"
 
 AShooterCharacter::AShooterCharacter()
 {
@@ -61,8 +63,55 @@ void AShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 
 		// Reload gun
 		EnhancedInputComponent->BindAction(ReloadWeaponAction, ETriggerEvent::Triggered, this, &AShooterCharacter::DoReloadWeapon);
+
+		// Bind Weapon Wheel (Hold to Show, Release to Hide)
+		EnhancedInputComponent->BindAction(WeaponWheelAction, ETriggerEvent::Started, this, &AShooterCharacter::ShowWeaponWheel);
+		EnhancedInputComponent->BindAction(WeaponWheelAction, ETriggerEvent::Completed, this, &AShooterCharacter::HideWeaponWheel);
 	}
 
+}
+
+void AShooterCharacter::ShowWeaponWheel()
+{
+	// Create Widget (Same as before)
+	if (!WeaponWheelClass) return;
+	if (!WeaponWheelWidget)
+	{
+		WeaponWheelWidget = CreateWidget<UUserWidget>(GetWorld(), WeaponWheelClass);
+	}
+
+	if (WeaponWheelWidget && !WeaponWheelWidget->IsInViewport())
+	{
+		WeaponWheelWidget->AddToViewport();
+
+		// The Character cannot set Input Mode directly. We must ask the Controller.
+		if (APlayerController* PC = Cast<APlayerController>(GetController()))
+		{
+			PC->bShowMouseCursor = true;
+
+			FInputModeGameAndUI InputMode;
+			InputMode.SetWidgetToFocus(WeaponWheelWidget->TakeWidget());
+			InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+
+			PC->SetInputMode(InputMode);
+		}
+	}
+}
+
+void AShooterCharacter::HideWeaponWheel()
+{
+	if (WeaponWheelWidget)
+	{
+		WeaponWheelWidget->RemoveFromParent();
+
+		if (APlayerController* PC = Cast<APlayerController>(GetController()))
+		{
+			PC->bShowMouseCursor = false;
+
+			FInputModeGameOnly InputMode;
+			PC->SetInputMode(InputMode);
+		}
+	}
 }
 
 float AShooterCharacter::TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
